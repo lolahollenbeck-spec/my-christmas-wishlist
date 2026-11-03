@@ -34,6 +34,7 @@ card.appendChild(shop);
 }
 
 document.getElementById("giftList").appendChild(card);
+saveGifts();
 }
 
 async function addGiftFromLink() {
