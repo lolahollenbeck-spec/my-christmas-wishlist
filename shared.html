@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Christmas Wishlist 🎀</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>My Christmas Wishlist 🎄💗</h1>
+<p>Here are some gifts I'd love!</p>
+
+<h2>My Gifts 🎁</h2>
+<div id="giftList"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const giftData = params.get("gifts");
+
+if (giftData) {
+try {
+const gifts = JSON.parse(giftData);
+const giftList = document.getElementById("giftList");
+
+gifts.forEach(function(gift) {
+const card = document.createElement("div");
+card.className = "gift-card";
+
+const image = document.createElement("img");
+image.src = gift.image;
+image.alt = gift.name;
+card.appendChild(image);
+
+const name = document.createElement("h3");
+name.textContent = gift.name;
+card.appendChild(name);
+
+const price = document.createElement("p");
+price.textContent = gift.price;
+card.appendChild(price);
+
+if (gift.link && /^https?:\/\//i.test(gift.link)) {
+const shop = document.createElement("a");
+shop.href = gift.link;
+shop.textContent = "Shop Gift 🔗";
+shop.target = "_blank";
+shop.rel = "noopener noreferrer";
+card.appendChild(shop);
+}
+
+giftList.appendChild(card);
+});
+} catch (error) {
+document.getElementById("giftList").textContent =
+"Sorry, this wishlist link couldn't be opened.";
+}
+}
+</script>
+</body>
+</html>
